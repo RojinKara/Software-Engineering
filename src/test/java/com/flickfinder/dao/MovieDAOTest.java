@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.flickfinder.model.MovieRating;
+import com.flickfinder.model.Person;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,7 +60,7 @@ class MovieDAOTest {
 	@Test
 	void testGetAllMovies() {
 		try {
-			List<Movie> movies = movieDAO.getAllMovies();
+			List<Movie> movies = movieDAO.getAllMovies(50);
 			assertEquals(5, movies.size());
 		} catch (SQLException e) {
 			fail("SQLException thrown");
@@ -98,6 +100,58 @@ class MovieDAOTest {
 		}
 
 	}
+
+	/**
+	 * Tests the getStarsByMovie method.
+	 * We expect to get a list of all stars in the specified movie.
+	 */
+
+	@Test
+	void testGetStarsByMovie(){
+		try {
+			List<Person> movies = movieDAO.getStarsByMovie(1);
+			assertEquals(2, movies.size());
+		} catch (SQLException e) {
+			fail("SQLException thrown");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Tests the getStarsByMovie method with an invalid movie id.
+	 * We expect to get an empty list.
+	 */
+
+	@Test
+	void testGetStarsByInvalidMovie(){
+		try {
+			List<Person> movies = movieDAO.getStarsByMovie(1000);
+			assertEquals(0, movies.size());
+		} catch (SQLException e) {
+			fail("SQLException thrown");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Tests the getMoviesByRatingOrder method.
+	 * We expect to get a list of movies by a specified year and rating.
+	 */
+
+	@Test
+	void testGetMoviesByRatingOrder(){
+		try {
+			List<MovieRating> movies = movieDAO.getMoviesByRatingOrder(1972 , 1000, 5);
+			assertEquals(1, movies.size());
+		} catch (SQLException e) {
+			fail("SQLException thrown");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Close connection after each test method.
+	 */
 
 	@AfterEach
 	void tearDown() {

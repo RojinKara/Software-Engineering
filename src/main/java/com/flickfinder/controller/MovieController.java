@@ -41,12 +41,18 @@ public class MovieController {
 
 	/**
 	 * Returns a list of all movies in the database.
+	 * The limit parameter is used to limit the number of movies returned.
+	 * If a database error occurs, a 500 status code is returned.
 	 * 
 	 * @param ctx the Javalin context
 	 */
 	public void getAllMovies(Context ctx) {
 		try {
-			ctx.json(movieDAO.getAllMovies());
+			int limit = 50;
+			if (ctx.queryParam("limit") != null && !(Integer.parseInt(ctx.queryParam("limit")) <= 0)) {
+				limit = Integer.parseInt(ctx.queryParam("limit"));
+			}
+			ctx.json(movieDAO.getAllMovies(limit));
 		} catch (SQLException e) {
 			ctx.status(500);
 			ctx.result("Database error");
@@ -56,6 +62,8 @@ public class MovieController {
 
 	/**
 	 * Returns the movie with the specified id.
+	 * If the movie is not found, a 404 status code is returned.
+	 * If a database error occurs, a 500 status code is returned.
 	 * 
 	 * @param ctx the Javalin context
 	 */
@@ -77,4 +85,48 @@ public class MovieController {
 		}
 	}
 
+	/**
+	 * Returns a list of people by a specified movie id.
+	 * If a database error occurs, a 500 status code is returned.
+	 *
+	 * @param ctx the Javalin context
+	 */
+	public void getPeopleByMovieId(Context ctx) {
+		int id = Integer.parseInt(ctx.pathParam("id"));
+		try {
+			ctx.json(movieDAO.getStarsByMovie(id));
+		} catch (SQLException e) {
+			ctx.status(500);
+			ctx.result("Database error");
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Returns a list of movie ratings which were released in the
+	 * specified year and have votes greater than the specified value.
+	 *
+	 * The limit parameter is used to limit the number of movies returned.
+	 * If a database error occurs, a 500 status code is returned.
+	 *
+	 * @param ctx the Javalin context
+	 */
+	public void getRatingsByYear(Context ctx) {
+		int year = Integer.parseInt(ctx.pathParam("year"));
+		try {
+			int limit = 50;
+			if (ctx.queryParam("limit") != null && !(Integer.parseInt(ctx.queryParam("limit")) <= 0)) {
+				limit = Integer.parseInt(ctx.queryParam("limit"));
+			}
+			int votes = 1000;
+			if (ctx.queryParam("votes") != null && !(Integer.parseInt(ctx.queryParam("votes")) <= 0)) {
+				votes = Integer.parseInt(ctx.queryParam("votes"));
+			}
+			ctx.json(movieDAO.getMoviesByRatingOrder(year,votes, limit));
+		} catch (SQLException e) {
+			ctx.status(500);
+			ctx.result("Database error");
+			e.printStackTrace();
+		}
+	}
 }

@@ -12,8 +12,6 @@ import java.sql.Statement;
  * and ratings.
  * This is so we can rationalise about the responses we expect from the
  * database.
- * 
- * You should not need to modify this file.
  *
  */
 public class Seeder {
@@ -34,7 +32,7 @@ public class Seeder {
 	 * You may want to add further records to support your testing; however, this
 	 * is optional.
 	 * 
-	 * @param url
+	 * @param url The URL of the database.
 	 */
 	public Seeder(String url) {
 		this.url = url;
