@@ -36,6 +36,10 @@ class MovieControllerTest {
 
 	private MovieController movieController;
 
+	/**
+	 * Set up the test.
+	 */
+
 	@BeforeEach
 	void setUp() {
 		// We create a mock of the MovieDAO class.

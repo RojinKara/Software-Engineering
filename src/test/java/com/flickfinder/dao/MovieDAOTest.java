@@ -85,11 +85,11 @@ class MovieDAOTest {
 	}
 
 	/**
-	 * Tests the getMovieById method with an invalid id. Null should be returned.
+	 * Tests the getMovieById method with an invalid id.
+	 * Null should be returned.
 	 */
 	@Test
 	void testGetMovieByIdInvalidId() {
-		// write an assertThrows for a SQLException
 
 		try {
 			Movie movie = movieDAO.getMovieById(1000);

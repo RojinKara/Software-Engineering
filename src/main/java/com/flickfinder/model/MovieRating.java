@@ -61,6 +61,7 @@ public class MovieRating extends Movie {
 
     /**
      * Returns a string representation of the movie rating.
+     * This is primarily used for debugging purposes.
      *
      * @return a string representation of the movie rating
      */

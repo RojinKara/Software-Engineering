@@ -102,7 +102,8 @@ class PersonDAOTest {
     /**
      * Tests the getMoviesByStar method.
      * We expect to get a list of movies by a specified person id.
-     * We have seeded the database with 5 movies, so we expect to get 5 movies back.
+     * We have seeded the database with 5 movies,
+     * so we expect to get 5 movies back.
      */
 
     @Test

@@ -139,7 +139,7 @@ class IntegrationTests {
 	}
 
 	/**
-	 * Test that the application retrieves a list of movieratings by year.
+	 * Test that the application retrieves a list of movie ratings by year.
 	 */
 
 	@Test
