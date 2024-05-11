@@ -40,7 +40,7 @@ public class MovieController {
 	}
 
 	/**
-	 * Returns a list of all movies in the database.
+	 * Returns a list of all movies in the database. (limited to 50)
 	 * The limit parameter is used to limit the number of movies returned.
 	 * If a database error occurs, a 500 status code is returned.
 	 * 
@@ -68,9 +68,9 @@ public class MovieController {
 	 * @param ctx the Javalin context
 	 */
 	public void getMovieById(Context ctx) {
-
-		int id = Integer.parseInt(ctx.pathParam("id"));
 		try {
+			int id = Integer.parseInt(ctx.pathParam("id"));
+
 			Movie movie = movieDAO.getMovieById(id);
 			if (movie == null) {
 				ctx.status(404);
@@ -92,8 +92,9 @@ public class MovieController {
 	 * @param ctx the Javalin context
 	 */
 	public void getPeopleByMovieId(Context ctx) {
-		int id = Integer.parseInt(ctx.pathParam("id"));
 		try {
+			int id = Integer.parseInt(ctx.pathParam("id"));
+
 			ctx.json(movieDAO.getStarsByMovie(id));
 		} catch (SQLException e) {
 			ctx.status(500);
@@ -112,8 +113,9 @@ public class MovieController {
 	 * @param ctx the Javalin context
 	 */
 	public void getRatingsByYear(Context ctx) {
-		int year = Integer.parseInt(ctx.pathParam("year"));
 		try {
+			int year = Integer.parseInt(ctx.pathParam("year"));
+
 			int limit = 50;
 			if (ctx.queryParam("limit") != null && !(Integer.parseInt(ctx.queryParam("limit")) <= 0)) {
 				limit = Integer.parseInt(ctx.queryParam("limit"));

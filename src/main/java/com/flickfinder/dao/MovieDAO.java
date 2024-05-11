@@ -38,6 +38,8 @@ public class MovieDAO {
 
 	/**
 	 * Returns a list of all movies in the database.
+	 *
+	 * @param limit the number of movies to return
 	 * 
 	 * @return a list of all movies in the database
 	 * @throws SQLException if a database error occurs

@@ -17,7 +17,7 @@ public class PersonController {
     }
 
     /**
-     * Returns a list of all people in the database.
+     * Returns a list of all people in the database. (limited to 50)
      * The limit parameter is used to limit the number of people returned.
      * If a database error occurs, a 500 status code is returned.
      *
@@ -45,9 +45,9 @@ public class PersonController {
      * @param ctx the Javalin context
      */
     public void getPersonById(Context ctx) {
-
-        int id = Integer.parseInt(ctx.pathParam("id"));
         try {
+            int id = Integer.parseInt(ctx.pathParam("id"));
+
             Person person = personDAO.getPersonById(id);
             if (person == null) {
                 ctx.status(404);
@@ -70,8 +70,9 @@ public class PersonController {
      */
 
     public void getMoviesStarringPerson(Context ctx) {
-        int id = Integer.parseInt(ctx.pathParam("id"));
         try {
+            int id = Integer.parseInt(ctx.pathParam("id"));
+
             ctx.json(personDAO.getMoviesByStar(id));
         } catch (SQLException e) {
             ctx.status(500);
